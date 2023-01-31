@@ -1,5 +1,5 @@
 # Simple-Admin
-This is a model that is often found within system administration type tools and unfortunately... botnets as well. **THIS IS NOT MEANT TO BE USED MALICIOUSLY AND I AM NOT RESPONSIBLE FOR ANY POTENTIAL DAMAGE**
+This is a model that is often found within system administration type tools and unfortunately... botnets as well. **THIS IS NOT MEANT TO BE USED MALICIOUSLY AND I AM NOT RESPONSIBLE FOR ANY POTENTIAL DAMAGE: ONLY FOR EDUCATIONAL PURPOSES**
 
 Video Demo: https://www.youtube.com/watch?v=tAiyIDKyo0c
 
