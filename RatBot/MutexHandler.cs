@@ -4,14 +4,15 @@ namespace stub
 {
     internal class MutexHandler
     {
-        const string appName = "MC-DEBUG";
+        static string appName = "";
         static bool createdNew;
         private static Mutex mutex = null;
 
-        public static void createMutex()
+        public static void createMutex(string ID)
         {
-            mutex = new Mutex(true, appName, out createdNew);
+            mutex = new Mutex(true, ID, out createdNew);
 
+            appName = ID;
             if (!createdNew)
             {
                 System.Environment.Exit(0);

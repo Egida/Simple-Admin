@@ -9,7 +9,8 @@ namespace stub
         public static string IpReturn()
         {
             var externalIp = IPAddress.Parse(externalIpString);
-            return externalIp.ToString();
+            //return externalIp.ToString();
+            return "127.0.0.1";
         }
     }
 }

